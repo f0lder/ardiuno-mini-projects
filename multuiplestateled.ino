@@ -6,7 +6,6 @@
 
 byte lastButtonState = LOW;
 int currentstate = 1;
-
 void setup()
 {
     pinMode(RED_PIN, OUTPUT);
@@ -18,7 +17,7 @@ void setup()
 
     Serial.begin(9600);
 
-    switchToNextColor(255,0,0);
+    setColor(255,0,0);
 }
 
 void loop()
@@ -27,51 +26,31 @@ void loop()
     // Serial.println(digitalRead(BUTTON_PIN), BIN);
 
     byte buttonState = digitalRead(BUTTON_PIN);
-    if (buttonState != lastButtonState)
+    if (buttonState != lastButtonState) // press the button
     {
-        lastButtonState = buttonState;
-        if (buttonState == LOW)
+        lastButtonState = buttonState; // the state is in pressed state
+        if (buttonState == LOW) // button is released
         {
-            switch (currentstate)
-            {
-            case 1:
-            {
-                // next state is blue
-                switchToNextColor(0, 255, 0);
-                digitalWrite(STATUS_LED_PIN,LOW);
-                currentstate ++;
-            }
-            break;
-
-            case 2:
-            {
-                // next state is green
-                switchToNextColor(0, 0, 255);
-                currentstate ++;
-                 digitalWrite(STATUS_LED_PIN,HIGH);
-            }
-
-            break;
-
-            case 3:
-            {
-                // next state is red
-                switchToNextColor(255, 0, 0);
-                currentstate = 1;
-                digitalWrite(STATUS_LED_PIN,LOW);
-            }
-            default:
-                break;
-            }
+           nextState(currentstate);
         }
     }
     // delay(1000);
-    Serial.println(currentstate,DEC);
+    //Serial.println(currentstate,DEC);
 }
 
-void switchToNextColor(int r, int b, int g)
+void setColor(int r, int b, int g)
 {
     digitalWrite(RED_PIN, r);
     digitalWrite(BLUE_PIN, b);
     digitalWrite(GREEN_PIN, g);
+}
+
+void nextState(int& s){
+    //1 = red 2 = blue 3 = green
+    setColor(255 * (s==1),255 * (s==2),255 * (s==3));
+    if(s == 3){
+        s = 1;
+    } else {
+        s++;
+    }
 }
