@@ -5,9 +5,6 @@
 #define STATUS_LED_PIN 8
 
 byte lastButtonState = LOW;
-int redtate = 1;
-int bluestate = 2;
-int greenstate = 3;
 int currentstate = 1;
 
 void setup()
@@ -20,6 +17,8 @@ void setup()
     pinMode(STATUS_LED_PIN,OUTPUT);
 
     Serial.begin(9600);
+
+    switchToNextColor(255,0,0);
 }
 
 void loop()
@@ -58,7 +57,7 @@ void loop()
             {
                 // next state is red
                 switchToNextColor(255, 0, 0);
-                currentstate = redtate;
+                currentstate = 1;
                 digitalWrite(STATUS_LED_PIN,LOW);
             }
             default:
