@@ -1,3 +1,4 @@
+/*
 #define RED_PIN 11
 #define BLUE_PIN 10
 #define GREEN_PIN 9
@@ -13,11 +14,11 @@ void setup()
     pinMode(GREEN_PIN, OUTPUT);
 
     pinMode(BUTTON_PIN, INPUT);
-    pinMode(STATUS_LED_PIN,OUTPUT);
+    pinMode(STATUS_LED_PIN, OUTPUT);
 
     Serial.begin(9600);
 
-    setColor(255,0,0);
+    setColor(255, 0, 0);
 }
 
 void loop()
@@ -29,13 +30,13 @@ void loop()
     if (buttonState != lastButtonState) // press the button
     {
         lastButtonState = buttonState; // the state is in pressed state
-        if (buttonState == LOW) // button is released
+        if (buttonState == LOW)        // button is released
         {
-           nextState(currentstate);
+            nextState(currentstate);
         }
     }
     // delay(1000);
-    //Serial.println(currentstate,DEC);
+    // Serial.println(currentstate,DEC);
 }
 
 void setColor(int r, int b, int g)
@@ -45,12 +46,18 @@ void setColor(int r, int b, int g)
     digitalWrite(GREEN_PIN, g);
 }
 
-void nextState(int& s){
-    //1 = red 2 = blue 3 = green
-    setColor(255 * (s==1),255 * (s==2),255 * (s==3));
-    if(s == 3){
+void nextState(int &s)
+{
+    // 1 = red 2 = blue 3 = green
+    setColor(255 * (s == 1), 255 * (s == 2), 255 * (s == 3));
+    if (s == 3)
+    {
         s = 1;
-    } else {
+    }
+    else
+    {
         s++;
     }
 }
+
+*/
